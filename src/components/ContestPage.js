@@ -2,27 +2,28 @@ import React from 'react';
 import { Grid, Row, Col, Clearfix } from 'react-bootstrap';
 import contests from '../data/contests';
 import NotFoundPage from './NotFoundPage';
-import VotesGraph from './VotesGraph';
+import { Doughnut } from 'react-chartjs';
 
 export default class ContestPage extends React.Component {
   render() {
-    const id = this.props.params.id;
+    const id = parseInt(this.props.params.id);
     const contest = contests.filter((contest) => contest.id === id)[0];
     if (!contest) {
       return <NotFoundPage/>;
     }
+    let data = [];
+    contest.options.forEach((o) => {
+      data.push({
+        value: o.count,
+        label: o.desc,
+        color: "#F7464A"
+      });
+    });
     return (
-      <Grid>
-        <Row className="show-grid">
-          <Col md={6} mdPull={6}>
-            <h2>{contest.name}</h2>
-          </Col>
-          <Clearfix visibleSmBlock></Clearfix>
-          <Col md={6} mdPush={6}>
-            <VotesGraph contest={contest} />
-          </Col>
-        </Row>
-      </Grid>
+      <div>
+        <h2>{contest.name}</h2>
+        <Doughnut data={data} />
+      </div>
     );
   }
 }
