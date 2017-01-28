@@ -4,11 +4,11 @@ const contests = [
 		id: 1,
 		name: "Favorite programming language",
 		options: [
-			{ id: 1, desc: "JavaScript", count: 0 , users: null},
-			{ id: 2, desc: "Java", count: 0 , users: null},
-			{ id: 3, desc: "Ruby", count: 0 , users: null},
-			{ id: 4, desc: "Python", count: 0 , users: null},
-			{ id: 5, desc: "C++", count: 0 , users: null}
+			{ id: 1, desc: "JavaScript", count: 2 , users: null},
+			{ id: 2, desc: "Java", count: 3 , users: null},
+			{ id: 3, desc: "Ruby", count: 6 , users: null},
+			{ id: 4, desc: "Python", count: 4 , users: null},
+			{ id: 5, desc: "C++", count: 1 , users: null}
 		],
 		totalVotes: 0
 	},
