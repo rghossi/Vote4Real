@@ -1,7 +1,8 @@
 import React from 'react';
 import { Grid, Row, Col, Clearfix } from 'react-bootstrap';
 import contests from '../data/contests';
-import VotesGraph from './ContestPreview';
+import NotFoundPage from './NotFoundPage';
+import VotesGraph from './VotesGraph';
 
 export default class ContestPage extends React.Component {
   render() {
