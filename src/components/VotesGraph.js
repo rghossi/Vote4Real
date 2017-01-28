@@ -1,6 +1,5 @@
 import React from 'react';
 import DoughnutChart from 'react-chartjs';
-import { Grid, Row, Col, Clearfix } from 'react-bootstrap';
 
 export default class VotesGraph extends React.Component {
   render() {
