@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Row, Col, Clearfix } from 'react-bootstrap';
 import contests from '../data/contests';
 import NotFoundPage from './NotFoundPage';
-import { Doughnut } from 'react-chartjs';
+import ChartWithLegend from './ChartWithLegend';
 
 export default class ContestPage extends React.Component {
   render() {
@@ -19,10 +19,13 @@ export default class ContestPage extends React.Component {
         color: "#F7464A"
       });
     });
+    const options = {
+      legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"color:<%=segments[i].fillColor%>\"><%if(segments[i].label){%><%=segments[i].label%><%}%></span></li><%}%></ul>"
+    };
     return (
       <div>
         <h2>{contest.name}</h2>
-        <Doughnut data={data} />
+        <ChartWithLegend data={data} options={options} />
       </div>
     );
   }
