@@ -7,7 +7,6 @@ module.exports = {
     path: path.join(__dirname, 'src', 'static', 'js'),
     filename: 'bundle.js'
   },
-  watch: true,
   module: {
     loaders: [{
       test: path.join(__dirname, 'src'),
