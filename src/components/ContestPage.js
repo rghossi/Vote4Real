@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Row, Col, Clearfix } from 'react-bootstrap';
 import contests from '../data/contests';
 import NotFoundPage from './NotFoundPage';
-import ChartWithLegend from './ChartWithLegend';
+import { Doughnut } from 'react-chartjs-2';
 
 export default class ContestPage extends React.Component {
   render() {
@@ -11,21 +11,19 @@ export default class ContestPage extends React.Component {
     if (!contest) {
       return <NotFoundPage/>;
     }
-    let data = [];
-    contest.options.forEach((o) => {
-      data.push({
-        value: o.count,
-        label: o.desc,
-        color: "#F7464A"
-      });
-    });
-    const options = {
-      legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"color:<%=segments[i].fillColor%>\"><%if(segments[i].label){%><%=segments[i].label%><%}%></span></li><%}%></ul>"
+    const colors = ['#56E2CF','#56AEE2','#8A56E2', '#CF56E2', '#E256AE', '#E25668', '#E28956', '#E2CF56', '#AEE256'];
+    const data = {
+      labels: contest.options.map((o) => {return o.desc}),
+      datasets: [{
+        data: contest.options.map((o) => {return o.count}),
+        backgroundColor: colors,
+        hoverBackgroundColor: colors
+      }]
     };
     return (
       <div>
         <h2>{contest.name}</h2>
-        <ChartWithLegend data={data} options={options} />
+        <Doughnut data={data} />
       </div>
     );
   }
