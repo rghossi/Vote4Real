@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Row, Col, Clearfix } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 import contests from '../data/contests';
 import NotFoundPage from './NotFoundPage';
 import { Doughnut } from 'react-chartjs-2';
@@ -22,8 +22,12 @@ export default class ContestPage extends React.Component {
     };
     return (
       <div>
-        <h2>{contest.name}</h2>
-        <Doughnut data={data} />
+        <Col xs={12} md={12}>
+          <h1 className='text-center'><small>{contest.name}</small></h1>
+        </Col>
+        <Col xs={12} md={6}>
+          <Doughnut data={data} />
+        </Col>
       </div>
     );
   }
