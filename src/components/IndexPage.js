@@ -6,11 +6,13 @@ import { ListGroup, Row, Col } from 'react-bootstrap';
 export default class IndexPage extends React.Component {
   render() {
     return (
-    <ListGroup>
-      <Col xs={12} md={6}>
-      	{contests.map(contestData => <ContestPreview key={contestData.id} {...contestData} />)}
-	  </Col>
-    </ListGroup>
+    <Row>
+	    <ListGroup>
+	      <Col xs={12} md={6}>
+	      	{contests.map(contestData => <ContestPreview key={contestData.id} {...contestData} />)}
+		  </Col>
+	    </ListGroup>
+    </Row>
     );
   }
 }

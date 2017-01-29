@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { Grid, PageHeader, Row, Nav, Navbar, NavItem } from 'react-bootstrap';
+import { Grid, PageHeader, Nav, Navbar, NavItem } from 'react-bootstrap';
 
 export default class Layout extends React.Component {
   render() {
@@ -21,7 +21,7 @@ export default class Layout extends React.Component {
             </Navbar.Collapse>
         </Navbar>
         <Grid>
-          <Row className="show-grid">{this.props.children}</Row>
+          {this.props.children}
         </Grid>
         <footer className="footer">
           <Grid>
