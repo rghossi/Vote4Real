@@ -4,7 +4,7 @@ import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 export default class VoteBox extends React.Component {
   render() {
     const optionItems = this.props.contest.options.map(option => {
-      return <option value={option.id}>{option.desc}</option>;
+      return <option key={option.id} value={option.id}>{option.desc}</option>;
     });
 
     return (
