@@ -6,9 +6,20 @@ import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import routes from './routes';
 import NotFoundPage from './components/NotFoundPage';
+import Mongoose from 'mongoose';
 
 const app = new Express();
 const server = new Server(app);
+const MONGODB_URI = process.env.database || 'mongodb://localhost/votingspa';
+const db = Mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connection error: '));
+db.once('open', function(){
+  console.log("Successfully connected to mongodb!")
+})
+
+Mongoose.connect(MONGODB_URI);
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 

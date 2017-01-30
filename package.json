@@ -27,6 +27,7 @@
     "chart.js": "^2.4.0",
     "ejs": "^2.5.5",
     "express": "^4.14.0",
+    "mongoose": "^4.8.0",
     "react": "^15.3.2",
     "react-bootstrap": "^0.30.7",
     "react-chartjs-2": "^2.0.0",
