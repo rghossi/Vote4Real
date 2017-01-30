@@ -30,12 +30,10 @@ export default class ContestPage extends React.Component {
     }
 
     this.setState({ contest, previousContest, nextContest });
-    console.log(this.state);
   }
 
   componentDidMount () {
     this.fetchContest();
-    console.log('bla');
   }
 
   componentDidUpdate (prevProps) {
@@ -46,7 +44,6 @@ export default class ContestPage extends React.Component {
   }
 
   render() {
-    console.log(this.state.contest);
     if (!this.state.contest) {
       return <NotFoundPage/>;
     }
