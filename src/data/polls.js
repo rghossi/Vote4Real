@@ -1,5 +1,5 @@
 'use strict';
-const contests = [
+const polls = [
 	{
 		id: 1,
 		name: "Favorite programming language",
@@ -23,4 +23,4 @@ const contests = [
 	}
 ];
 
-export default contests;
+export default polls;

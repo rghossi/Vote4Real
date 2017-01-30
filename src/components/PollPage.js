@@ -1,81 +1,81 @@
 import React from 'react';
 import { Grid, Row, Col, Pager } from 'react-bootstrap';
-import contests from '../data/contests';
+import polls from '../data/polls';
 import NotFoundPage from './NotFoundPage';
 import VoteBox from './VoteBox';
 import { Doughnut } from 'react-chartjs-2';
 import { Link } from 'react-router';
 
-export default class ContestPage extends React.Component {
+export default class PollPage extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      contest: null,
-      previousContest: null,
-      nextContest: null
+      poll: null,
+      previousPoll: null,
+      nextPoll: null
     };
   }
 
-  fetchContest() {
+  fetchPoll() {
     const id = parseInt(this.props.params.id);
-    const contest = contests.filter((contest) => contest.id === id)[0];
-    const index = contests.indexOf(contest);
+    const poll = polls.filter((poll) => poll.id === id)[0];
+    const index = polls.indexOf(poll);
 
     if (index !== 0){
-      var previousContest = contests[index-1];
+      var previousPoll = polls[index-1];
     }
-    if (index !== contests.length-1){
-      var nextContest = contests[index+1];
+    if (index !== polls.length-1){
+      var nextPoll = polls[index+1];
     }
 
-    this.setState({ contest, previousContest, nextContest });
+    this.setState({ poll, previousPoll, nextPoll });
   }
 
   componentDidMount () {
-    this.fetchContest();
+    this.fetchPoll();
   }
 
   componentDidUpdate (prevProps) {
     let oldId = prevProps.params.id;
     let newId = this.props.params.id;
     if (newId !== oldId)
-      this.fetchContest();
+      this.fetchPoll();
   }
 
   render() {
-    if (!this.state.contest) {
+    if (!this.state.poll) {
       return <NotFoundPage/>;
     }
     const colors = ['#56E2CF','#56AEE2','#8A56E2', '#CF56E2', '#E256AE', '#E25668', '#E28956', '#E2CF56', '#AEE256'];
     const data = {
-      labels: this.state.contest.options.map((o) => {return o.desc}),
+      labels: this.state.poll.options.map((o) => {return o.desc}),
       datasets: [{
-        data: this.state.contest.options.map((o) => {return o.count}),
+        data: this.state.poll.options.map((o) => {return o.count}),
         backgroundColor: colors,
         hoverBackgroundColor: colors
       }]
     };
     const previous = () => {
-      if (this.state.previousContest){
-        return <Link className="pager-item" to={`/contest/${this.state.previousContest.id}`}>&larr; Previous</Link>;
+      if (this.state.previousPoll){
+        return <Link className="pager-item" to={`/poll/${this.state.previousPoll.id}`}>&larr; Previous</Link>;
       }
     }
     const next = () => {
-      if (this.state.nextContest){
-        return <Link className="pager-item" to={`/contest/${this.state.nextContest.id}`}>Next &rarr;</Link>;
+      if (this.state.nextPoll){
+        return <Link className="pager-item" to={`/poll/${this.state.nextPoll.id}`}>Next &rarr;</Link>;
       }
     }
     return (
       <div>
         <Row>
           <Col xs={12} md={12}>
-            <h1 className='text-center'><small>{this.state.contest.name}</small></h1>
+            <h1 className='text-center'><small>{this.state.poll.name}</small></h1>
           </Col>
         </Row>
         <Row>
           <Col xs={12} md={4}>
-            <VoteBox contest={this.state.contest} />
+            <VoteBox poll={this.state.poll} />
           </Col>
           <Col xs={12} md={8}>
             <Doughnut data={data} />
