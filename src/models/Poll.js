@@ -26,3 +26,5 @@ PollSchema.methods = {
 		}
 	}
 }
+
+Mongoose.model('Poll', PollSchema);
