@@ -1,5 +1,6 @@
 import React from 'react';
 import PollPreview from './PollPreview';
+import NewPollForm from './NewPollForm';
 import axios from 'axios';
 import { ListGroup, Row, Col } from 'react-bootstrap';
 import Loader from 'react-loader';
@@ -28,13 +29,16 @@ export default class IndexPage extends React.Component {
   render() {
     return (
     <Row>
-	    <ListGroup>
-	      <Col xs={12} md={6}>
+      <Col xs={12} md={6}>
+        <NewPollForm />
+      </Col>
+      <Col xs={12} md={6}>
+        <ListGroup>
           <Loader loaded={this.state.loaded}>
 	      	  {this.state.polls.map(pollData => <PollPreview key={pollData._id} {...pollData} />)}
 		      </Loader>
-        </Col>
-	    </ListGroup>
+        </ListGroup>
+      </Col>
     </Row>
     );
   }
