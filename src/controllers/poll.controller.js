@@ -26,3 +26,18 @@ export function createNewPoll(req, res){
 		else res.json(poll);
 	});
 }
+
+export function computeNewVote(req, res){
+	const pollId = req.params.id;
+	Poll.findOne({_id: pollId}, (err, poll) => {
+		if (poll.saveVote(pollId, null)){
+			poll.totalVotes++;
+			poll.save((err) => {
+				if (err) res.status(500).send(err);
+				else res.json(poll);
+			});
+		} else {
+			if (err) res.status(500).send({message: "Something went wrong!"});
+		}
+	});
+};
