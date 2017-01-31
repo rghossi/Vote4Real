@@ -41,6 +41,7 @@ export default class NewPollForm extends React.Component {
             type="text"
             key={count-1}
             value={this.state.options[count-1]}
+            className="list-item-box"
             onChange={this.handleOptionChange.bind(this, count-1)}
             placeholder={"Vote option #" + count}
         />;
@@ -59,15 +60,18 @@ export default class NewPollForm extends React.Component {
 			        <FormGroup
 			          controlId="formBasicText"
 			        >
-			          <ControlLabel>New Poll</ControlLabel>
+			          <ControlLabel>Title</ControlLabel>
 			          <FormControl
 			            type="text"
 			            value={this.state.title}
 			            placeholder="Enter title"
 			            onChange={this.handleTitleChange}
 			          />
+			          <hr className="separator"/>
+			          <ControlLabel>Options</ControlLabel>
 			          <FormControl
 			            type="text"
+			            className="list-item-box"
 			            key={0}
 			            value={this.state.options[0]}
 			            placeholder="Vote option #1"
@@ -76,6 +80,7 @@ export default class NewPollForm extends React.Component {
 			          <FormControl
 			            type="text"
 			            key={1}
+			            className="list-item-box"
 			            value={this.state.options[1]}
 			            placeholder="Vote option #2"
 			            onChange={this.handleOptionChange.bind(this, 1)}
@@ -85,7 +90,7 @@ export default class NewPollForm extends React.Component {
 			        </FormGroup>
 			        <div className="text-center">
 				        <Button bsStyle="danger" type="submit">
-					      Submit
+					      Create
 					    </Button>
 				    </div>
 			    </form>
