@@ -1,6 +1,6 @@
 import React from 'react';
 import PollPreview from './PollPreview';
-import NewPollForm from './NewPollForm';
+import NewPollFormContainer from './NewPollFormContainer';
 import axios from 'axios';
 import { ListGroup, Row, Col } from 'react-bootstrap';
 import Loader from 'react-loader';
@@ -30,7 +30,7 @@ export default class IndexPage extends React.Component {
     return (
     <Row>
       <Col xs={12} md={6}>
-        <NewPollForm />
+        <NewPollFormContainer />
       </Col>
       <Col xs={12} md={6}>
         <ListGroup>
