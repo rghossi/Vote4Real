@@ -22,7 +22,7 @@ export default class PollPage extends React.Component {
       <div>
         <Row>
           <Col xs={12} md={12}>
-            <h1 className='text-center'><small>{this.props.poll.name}</small></h1>
+            <h1 className='text-center'><small>{this.props.poll.title}</small></h1>
           </Col>
         </Row>
         <Row>

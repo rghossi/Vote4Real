@@ -7,7 +7,7 @@ export default class PollPreview extends React.Component {
     return (
       <Link to={`/poll/${this.props.id}`}>
         <ListGroupItem>
-          <p className="name">{this.props.name}</p>
+          <p>{this.props.title}</p>
           <small>Total Votes: {this.props.totalVotes}</small>
         </ListGroupItem>
       </Link>
