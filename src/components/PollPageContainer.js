@@ -2,6 +2,7 @@ import React from 'react';
 import PollPage from './PollPage';
 import NotFoundPage from './NotFoundPage';
 import axios from 'axios';
+import Loader from 'react-loader';
 
 export default class PollPageContainer extends React.Component {
 
@@ -10,7 +11,8 @@ export default class PollPageContainer extends React.Component {
     this.state = {
       poll: null,
       previousPoll: null,
-      nextPoll: null
+      nextPoll: null,
+      loaded: false
     };
   }
 
@@ -26,7 +28,8 @@ export default class PollPageContainer extends React.Component {
       if (index !== polls.length-1){
         var nextPoll = polls[index+1];
       }
-      this.setState({ poll, previousPoll, nextPoll });
+      const loaded = true;
+      this.setState({ poll, previousPoll, nextPoll, loaded });
     }).catch(err => {
       console.log(err);
     });
@@ -45,7 +48,7 @@ export default class PollPageContainer extends React.Component {
 
   render() {
     if (!this.state.poll)
-      return <NotFoundPage />;
+      return <Loader loaded={this.state.loaded} />;
     const colors = ['#56E2CF','#56AEE2','#8A56E2', '#CF56E2', '#E256AE', '#E25668', '#E28956', '#E2CF56', '#AEE256'];
     const chartData = {
       labels: this.state.poll.options.map((o) => {return o.desc}),
