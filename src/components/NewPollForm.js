@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import { FormControl, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 
 export default class NewPollForm extends React.Component {
@@ -40,7 +39,7 @@ export default class NewPollForm extends React.Component {
 			          <Button bsStyle="info" onClick={this.props.addNewOption} block>Add new option</Button>
 			        </FormGroup>
 			        <div className="text-center">
-				        <Button bsStyle="danger">
+				        <Button bsStyle="danger" onClick={this.props.handleFormSubmit}>
 					      Create
 					    </Button>
 				    </div>

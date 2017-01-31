@@ -18,7 +18,11 @@ export function createNewPoll(req, res){
 	if (req.body.author){
 		poll.author = req.body.author;
 	};
-	poll.save((err) => {
-		if (err) console.log(err);
+	poll.save((err, poll) => {
+		if (err) {
+			console.log(err);
+			res.status(500).send(err);
+		}
+		else res.json(poll);
 	});
 }

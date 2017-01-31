@@ -7,7 +7,8 @@ import { match, RouterContext } from 'react-router';
 import routes from './routes';
 import NotFoundPage from './components/NotFoundPage';
 import Mongoose from 'mongoose';
-import apiRoutes from './apiRoutes'
+import apiRoutes from './apiRoutes';
+import BodyParser from 'body-parser';
 
 const app = new Express();
 const server = new Server(app);
@@ -25,6 +26,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(Express.static(path.join(__dirname, 'static')));
+app.use(BodyParser.json());
 app.use('/api', apiRoutes);
 
 app.get('*', (req, res) => {

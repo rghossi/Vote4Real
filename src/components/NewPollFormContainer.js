@@ -2,8 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import NewPollForm from './NewPollForm';
 import { FormControl } from 'react-bootstrap';
+import { withRouter } from 'react-router' 
 
-export default class NewPollFormContainer extends React.Component {
+class NewPollFormContainer extends React.Component {
 	constructor() {
 		super();
 		this.state = {
@@ -18,6 +19,7 @@ export default class NewPollFormContainer extends React.Component {
 		this.addNewOption = this.addNewOption.bind(this);
 		this.handleOptionChange = this.handleOptionChange.bind(this);
 		this.handleTitleChange = this.handleTitleChange.bind(this);
+		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 	}
 
 	showForm() {
@@ -26,13 +28,33 @@ export default class NewPollFormContainer extends React.Component {
 
 	handleTitleChange(e) {
 		this.setState({title: e.target.value});
-		console.log(this.state);
 	}
 
 	handleOptionChange(key, e) {
 		var newArray = this.state.options.slice();
 	    newArray[key] = e.target.value;
 	    this.setState({options: newArray});
+	}
+
+	handleFormSubmit() {
+		let newOptionsArray = [];
+		let count = 0;
+		this.state.options.forEach((name) => {
+			newOptionsArray.push({
+				id: count++,
+				desc: name
+			});
+		})
+		axios.post("../api/polls", {
+			title: this.state.title,
+			options: newOptionsArray
+		}).then( res => {
+			const url = '/poll/' + res.data._id;
+			this.props.router.push(url);
+		}).catch( err => {
+			this.props.router.push('/');
+			console.err(err);
+		});
 	}
 
 	addNewOption() {
@@ -61,7 +83,10 @@ export default class NewPollFormContainer extends React.Component {
 				addNewOption={this.addNewOption}
 				handleTitleChange={this.handleTitleChange}
 				handleOptionChange={this.handleOptionChange}
+				handleFormSubmit={this.handleFormSubmit}
 			/>
 		);
 	}
 }
+
+export default withRouter(NewPollFormContainer);
