@@ -40,11 +40,16 @@ class NewPollFormContainer extends React.Component {
 		let newOptionsArray = [];
 		let count = 0;
 		this.state.options.forEach((name) => {
-			newOptionsArray.push({
-				id: count++,
-				desc: name
-			});
+			if (name.trim().length > 0) {
+				newOptionsArray.push({
+					id: count++,
+					desc: name
+				});
+			}
 		})
+		if (newOptionsArray.length == 0 || this.state.title == 0) {
+			return;
+		}
 		axios.post("../api/polls", {
 			title: this.state.title,
 			options: newOptionsArray
