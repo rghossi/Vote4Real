@@ -12,7 +12,8 @@ export default class PollPageContainer extends React.Component {
       poll: null,
       previousPoll: null,
       nextPoll: null,
-      loaded: false
+      loaded: false,
+      selectedItem: -1
     };
   }
 
@@ -33,6 +34,21 @@ export default class PollPageContainer extends React.Component {
     }).catch(err => {
       console.log(err);
     });
+  }
+
+  handleSubmit(){
+    const url = "../api/poll/" + this.state.poll._id;
+    axios.put(url, {
+      selectedItemId: this.state.selectedItem
+    }).then((res) => {
+      console.log(res);
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+
+  handleSelect(e){
+    this.setState({selectedItem: e.target.value});
   }
 
   componentDidMount () {
@@ -58,6 +74,6 @@ export default class PollPageContainer extends React.Component {
         hoverBackgroundColor: colors
       }]
     };
-    return <PollPage chartData={chartData} poll={this.state.poll} previousPoll={this.state.previousPoll} nextPoll={this.state.nextPoll} />;
+    return <PollPage handleSelect={this.handleSelect} handleSubmit={this.handleSubmit} chartData={chartData} poll={this.state.poll} previousPoll={this.state.previousPoll} nextPoll={this.state.nextPoll} />;
   }
 }
