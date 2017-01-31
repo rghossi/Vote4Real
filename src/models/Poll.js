@@ -27,4 +27,4 @@ PollSchema.methods = {
 	}
 }
 
-Mongoose.model('Poll', PollSchema);
+export default Mongoose.model('Poll', PollSchema);
