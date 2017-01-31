@@ -9,3 +9,16 @@ export function getPolls(req, res) {
 		}
 	});
 }
+
+export function createNewPoll(req, res){
+	let poll = new Poll({
+		title: req.body.title,
+		options: req.body.options
+	});
+	if (req.body.author){
+		poll.author = req.body.author;
+	};
+	poll.save((err) => {
+		if (err) console.log(err);
+	});
+}
