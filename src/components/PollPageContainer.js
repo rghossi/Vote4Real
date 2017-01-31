@@ -1,8 +1,7 @@
 import React from 'react';
 import PollPage from './PollPage';
 import NotFoundPage from './NotFoundPage';
-
-import polls from '../data/polls';
+import axios from 'axios';
 
 export default class PollPageContainer extends React.Component {
 
@@ -15,29 +14,33 @@ export default class PollPageContainer extends React.Component {
     };
   }
 
-  fetchPoll() {
-    const id = parseInt(this.props.params.id);
-    const poll = polls.filter((poll) => poll.id === id)[0];
-    const index = polls.indexOf(poll);
-    if (index !== 0){
-      var previousPoll = polls[index-1];
-    }
-    if (index !== polls.length-1){
-      var nextPoll = polls[index+1];
-    }
-
-    this.setState({ poll, previousPoll, nextPoll });
+  fetchPolls() {
+    const id = this.props.params.id;
+    axios.get("../api/polls").then( res => {
+      const polls = res.data.polls;
+      const poll = polls.filter((poll) => poll._id === id)[0];
+      const index = polls.indexOf(poll);
+      if (index !== 0){
+        var previousPoll = polls[index-1];
+      }
+      if (index !== polls.length-1){
+        var nextPoll = polls[index+1];
+      }
+      this.setState({ poll, previousPoll, nextPoll });
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
   componentDidMount () {
-    this.fetchPoll();
+    this.fetchPolls();
   }
 
   componentDidUpdate (prevProps) {
     let oldId = prevProps.params.id;
     let newId = this.props.params.id;
     if (newId !== oldId)
-      this.fetchPoll();
+      this.fetchPolls();
   }
 
   render() {

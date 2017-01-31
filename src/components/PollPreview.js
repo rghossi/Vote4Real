@@ -5,7 +5,7 @@ import { ListGroupItem } from 'react-bootstrap';
 export default class PollPreview extends React.Component {
   render() {
     return (
-      <Link to={`/poll/${this.props.id}`}>
+      <Link to={`/poll/${this.props._id}`}>
         <ListGroupItem>
           <p>{this.props.title}</p>
           <small>Total Votes: {this.props.totalVotes}</small>

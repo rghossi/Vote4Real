@@ -13,7 +13,7 @@ export default class IndexPage extends React.Component {
 
   fetchPolls() {
     axios.get("api/polls").then( res => {
-      this.setState(res.data.polls);
+      this.setState({polls: res.data.polls});
     }).catch(err => {
       console.log(err);
     });
@@ -28,7 +28,7 @@ export default class IndexPage extends React.Component {
     <Row>
 	    <ListGroup>
 	      <Col xs={12} md={6}>
-	      	{this.state.polls.map(pollData => <PollPreview key={pollData.id} {...pollData} />)}
+	      	{this.state.polls.map(pollData => <PollPreview key={pollData._id} {...pollData} />)}
 		    </Col>
 	    </ListGroup>
     </Row>

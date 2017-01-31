@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Row, Col, Pager } from 'react-bootstrap';
+import { Gr_id, Row, Col, Pager } from 'react-bootstrap';
 import VoteBox from './VoteBox';
 import { Doughnut } from 'react-chartjs-2';
 import { Link } from 'react-router';
@@ -7,13 +7,13 @@ import { Link } from 'react-router';
 export default class PollPage extends React.Component {
   previousPollBtn() {
     if (this.props.previousPoll){
-      return <Link className="pager-item" to={`/poll/${this.props.previousPoll.id}`}>&larr; Previous</Link>;
+      return <Link className="pager-item" to={`/poll/${this.props.previousPoll._id}`}>&larr; Previous</Link>;
     }
   }
 
   nextPollBtn() {
     if (this.props.nextPoll){
-      return <Link className="pager-item" to={`/poll/${this.props.nextPoll.id}`}>Next &rarr;</Link>;
+      return <Link className="pager-item" to={`/poll/${this.props.nextPoll._id}`}>Next &rarr;</Link>;
     }
   }
 
