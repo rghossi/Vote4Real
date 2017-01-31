@@ -15,6 +15,9 @@ export default class PollPageContainer extends React.Component {
       loaded: false,
       selectedItem: -1
     };
+
+    this.handleSelect = this.handleSelect.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   fetchPolls() {
@@ -37,13 +40,14 @@ export default class PollPageContainer extends React.Component {
   }
 
   handleSubmit(){
+    if (this.state.selectedItem === -1) return;
     const url = "../api/poll/" + this.state.poll._id;
     axios.put(url, {
       selectedItemId: this.state.selectedItem
     }).then((res) => {
-      console.log(res);
+      this.setState({poll: res.data, selectedItem: -1});
     }).catch((err) => {
-      console.log(err);
+      alert(err);
     });
   }
 
@@ -74,6 +78,6 @@ export default class PollPageContainer extends React.Component {
         hoverBackgroundColor: colors
       }]
     };
-    return <PollPage handleSelect={this.handleSelect} handleSubmit={this.handleSubmit} chartData={chartData} poll={this.state.poll} previousPoll={this.state.previousPoll} nextPoll={this.state.nextPoll} />;
+    return <PollPage selectedItem={this.state.selectedItem} handleSelect={this.handleSelect} handleSubmit={this.handleSubmit} chartData={chartData} poll={this.state.poll} previousPoll={this.state.previousPoll} nextPoll={this.state.nextPoll} />;
   }
 }

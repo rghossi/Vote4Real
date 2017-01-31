@@ -13,7 +13,7 @@ export default class VoteBox extends React.Component {
           <ControlLabel>Vote!</ControlLabel>
           <FormGroup controlId="formControlsSelect">
             <ControlLabel>Select your option</ControlLabel>
-            <FormControl componentClass="select" defaultValue="-1" onChange={this.props.handleSelect.bind(this)} placeholder="select">
+            <FormControl componentClass="select" value={this.props.selectedItem} onChange={this.props.handleSelect} placeholder="select">
               <option value="-1" disabled>--</option>
               {optionItems}
             </FormControl>

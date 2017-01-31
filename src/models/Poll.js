@@ -15,21 +15,4 @@ const PollSchema = new Schema({
 	createdAt: { type: Date, default: Date.now }
 });
 
-PollSchema.methods = {
-	saveVote: function(optionId, userId){
-		const index = this.options.map(option => option.id).indexOf(optionId);
-		if (index) {
-			this.options.set(index, this.options[index].count + 1);
-			if (userId)
-				this.options[index].users.push(userId);
-			this.save((err) => {
-				if (err) return false;
-				else return true;
-			});
-		} else {
-			throw new Error('Option not found!');
-		}
-	}
-}
-
 export default Mongoose.model('Poll', PollSchema);
