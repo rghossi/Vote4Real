@@ -10,6 +10,7 @@ const PollSchema = new Schema({
 		count: { type: Number, default: 0 },
 		users: [{ type: Schema.ObjectId, ref: 'User' }]
 	}],
+	author: { type: Schema.ObjectId, ref: 'User' },
 	totalVotes: { type: Number, default: 0 },
 	createdAt: { type: Date, default: Date.now }
 });
