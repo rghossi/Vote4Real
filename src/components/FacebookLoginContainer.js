@@ -14,16 +14,13 @@ export default class FacebookLoginContainer extends React.Component {
 	}
 
 	saveUser(user) {
-		user.pictureUrl = user.picture.data.url;
-		axios.post("api/users", {user}).then( res => {
-	      console.log(res);
-	    }).catch(err => {
-	      console.log(err);
+		axios.post("api/users", {user}).catch(err => {
+			if(err.response.status !== 403)
+	      		console.log(err);
 	    });
 	}
 
 	responseFacebook(res) {
-		console.log(res);
 		if (res.userID) {
 			this.setState({user: res, loggedIn: true});
 			this.saveUser(res);
