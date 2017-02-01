@@ -39,3 +39,9 @@ body {
 .list-item-box {
   margin-bottom: 5px;
 }
+
+.my-facebook-button {
+  background-color: #4A67B7;
+  color: white;
+  border-color: white;
+}

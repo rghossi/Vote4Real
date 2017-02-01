@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import FacebookLoginContainer from './FacebookLoginContainer';
 import { Grid, PageHeader, Nav, Navbar, NavItem } from 'react-bootstrap';
 
 export default class Layout extends React.Component {
@@ -14,11 +15,10 @@ export default class Layout extends React.Component {
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
-            <Nav>
-              <NavItem eventKey={1} href="#">Login</NavItem>
-              <NavItem eventKey={2} href="#">About</NavItem>
+            <Nav pullRight>
+              <NavItem eventKey={1}><FacebookLoginContainer /></NavItem>
             </Nav>
-            </Navbar.Collapse>
+          </Navbar.Collapse>
         </Navbar>
         <Grid>
           {this.props.children}

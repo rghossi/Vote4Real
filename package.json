@@ -35,6 +35,8 @@
     "react-bootstrap": "^0.30.7",
     "react-chartjs-2": "^2.0.0",
     "react-dom": "^15.3.2",
+    "react-facebook-login": "^3.4.3",
+    "react-icons": "^2.2.3",
     "react-loader": "^2.4.0",
     "react-router": "^2.6.1"
   },
