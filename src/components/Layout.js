@@ -12,13 +12,10 @@ export default class Layout extends React.Component {
             <Navbar.Brand>
               <Link to="/">Vote4Real</Link>
             </Navbar.Brand>
-            <Navbar.Toggle />
           </Navbar.Header>
-          <Navbar.Collapse>
-            <Nav pullRight>
-              <NavItem eventKey={1}><FacebookLoginContainer /></NavItem>
-            </Nav>
-          </Navbar.Collapse>
+          <Nav pullRight>
+            <NavItem eventKey={1}><FacebookLoginContainer /></NavItem>
+          </Nav>
         </Navbar>
         <Grid>
           {this.props.children}
