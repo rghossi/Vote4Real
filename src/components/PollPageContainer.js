@@ -47,7 +47,11 @@ export default class PollPageContainer extends React.Component {
     }).then((res) => {
       this.setState({poll: res.data, selectedItem: -1});
     }).catch((err) => {
-      alert(err);
+      if(err.response.status === 403){
+        alert(err.response.data);
+      } else {
+        alert(err.response);
+      }
     });
   }
 

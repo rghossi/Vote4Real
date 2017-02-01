@@ -1,5 +1,11 @@
 import Poll from '../models/Poll';
 
+function getIpsThatVoted(options){
+	const messyIps = options.map((o) => o.ips);
+	const mergedIps = [].concat.apply([], messyIps);
+	return mergedIps;
+}
+
 export function getPolls(req, res) {
 	Poll.find({}, (err, polls) => {
 		if (err) {
@@ -35,6 +41,11 @@ export function computeNewVote(req, res){
 		const index = poll.options.map(option => option.id ).indexOf(optionId);
 		if (index > -1) {
 			const optionSelected = poll.options[index];
+			if (getIpsThatVoted(poll.options).indexOf(req.ip) >=0){
+				res.status(403).send("You already voted! (Ip-based check)");
+				return;
+			}
+			optionSelected.ips.push(req.ip);
 			optionSelected.count++;
 			poll.options.set(index, optionSelected);
 			if (userId)
@@ -45,7 +56,7 @@ export function computeNewVote(req, res){
 				else res.json(updatedPoll);
 			});
 		} else {
-			res.status(500).send({message: "Option not found!"});
+			res.status(500).send("Option not found!");
 		}
 	});
 };

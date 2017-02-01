@@ -8,7 +8,8 @@ const PollSchema = new Schema({
 		id: Number,
 		desc: { type: String, trim: true },
 		count: { type: Number, default: 0 },
-		users: [{ type: Schema.ObjectId, ref: 'User' }]
+		users: [{ type: Schema.ObjectId, ref: 'User' }],
+		ips: [ String ]
 	}],
 	author: { type: Schema.ObjectId, ref: 'User' },
 	totalVotes: { type: Number, default: 0 },
