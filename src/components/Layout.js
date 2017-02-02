@@ -11,14 +11,7 @@ export default class Layout extends React.Component {
             <Navbar.Brand>
               <Link to="/">Vote4Real</Link>
             </Navbar.Brand>
-            <Navbar.Toggle />
           </Navbar.Header>
-          <Navbar.Collapse>
-            <Nav>
-              <NavItem eventKey={1} href="#">Login</NavItem>
-              <NavItem eventKey={2} href="#">About</NavItem>
-            </Nav>
-            </Navbar.Collapse>
         </Navbar>
         <Grid>
           {this.props.children}
