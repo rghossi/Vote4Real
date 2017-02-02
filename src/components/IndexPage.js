@@ -10,7 +10,8 @@ export default class IndexPage extends React.Component {
     super();
     this.state = {
       polls: [],
-      loaded: false
+      loaded: false,
+      userID: null
     };
   }
 
@@ -26,11 +27,17 @@ export default class IndexPage extends React.Component {
     this.fetchPolls();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(this.props.userID !== nextProps.userID) {
+      this.setState({userID: nextProps.userID});
+    }
+  } 
+
   render() {
     return (
     <Row>
       <Col xs={12} md={6}>
-        <NewPollFormContainer />
+        <NewPollFormContainer userID={this.state.userID} />
       </Col>
       <Col xs={12} md={6}>
         <ListGroup>

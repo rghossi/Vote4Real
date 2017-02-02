@@ -13,7 +13,8 @@ class NewPollFormContainer extends React.Component {
 			newButtonClass: '',
 			optionBoxes: [],
 			options: ['', ''],
-			optionsCount: 2
+			optionsCount: 2,
+			userID: null
 		};
 		this.showForm = this.showForm.bind(this);
 		this.addNewOption = this.addNewOption.bind(this);
@@ -62,6 +63,24 @@ class NewPollFormContainer extends React.Component {
 		});
 	}
 
+	componentDidMount() {
+		console.log(this.state);
+		console.log(localStorage.getItem('userID'));
+		if (this.props.userID){
+			this.setState({userID: this.props.userID});
+		}
+		if (localStorage.getItem('userID')){
+			this.setState({newButtonClass: ''});
+		}
+	}
+
+	componentWillReceiveProps(nextProps) {
+	    if(this.props.userID !== nextProps.userID) {
+	      this.setState({userID: nextProps.userID});
+	      if (nextProps.userID) this.setState({newButtonClass: ''});
+	    }
+	}
+
 	addNewOption() {
 		const count = this.state.optionsCount + 1;
 		const optionsNewArray = this.state.options.slice();
@@ -81,6 +100,7 @@ class NewPollFormContainer extends React.Component {
 	}
 
 	render() {
+		if (!this.state.userID) return null;
 		return (
 			<NewPollForm
 				{...this.state}

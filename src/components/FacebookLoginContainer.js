@@ -24,6 +24,8 @@ export default class FacebookLoginContainer extends React.Component {
 		if (res.userID) {
 			this.setState({user: res, loggedIn: true});
 			this.saveUser(res);
+			localStorage.setItem('userID', res.userID);
+			this.props.login();
 		}
 	};
 
