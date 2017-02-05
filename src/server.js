@@ -9,6 +9,10 @@ import NotFoundPage from './components/NotFoundPage';
 import Mongoose from 'mongoose';
 import apiRoutes from './apiRoutes';
 import BodyParser from 'body-parser';
+import Passport from 'passport';
+import { Strategy } from 'passport-facebook';
+import * as UserCtrl from './controllers/user.controller';
+import configAuth from './config/auth';
 
 const app = new Express();
 const server = new Server(app);
@@ -21,6 +25,17 @@ db.once('open', function(){
 })
 
 Mongoose.connect(MONGODB_URI);
+
+Passport.use(new Strategy({
+    clientID: configAuth.facebookAuth.clientID || Authprocess.env.CLIENT_ID,
+    clientSecret: configAuth.facebookAuth.clientSecret || process.env.CLIENT_SECRET,
+    callbackURL: configAuth.facebookAuth.callbackURL || process.env.CALLBACK_URL
+  },
+  UserCtrl.facebookCallback
+));
+
+Passport.serializeUser(UserCtrl.serialize);
+Passport.deserializeUser(UserCtrl.deserialize);
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
