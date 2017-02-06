@@ -30,6 +30,7 @@
     "chart.js": "^2.4.0",
     "ejs": "^2.5.5",
     "express": "^4.14.0",
+    "express-session": "^1.15.0",
     "mongoose": "^4.8.0",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",

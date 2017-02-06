@@ -1,7 +1,11 @@
 import User from '../models/User';
 
 export function isLoggedIn(req, res) {
-	res.json({isAuthenticated: req.isAuthenticated()});
+	if (req.session.passport){
+		res.json({userId: req.session.passport.user, isAuthenticated: req.isAuthenticated()});
+	} else {
+		res.json({isAuthenticated: req.isAuthenticated()});
+	}
 }
 
 export function isLoggedInMid(req, res, next) {
@@ -21,8 +25,8 @@ export function facebookCallback(accessToken, refreshToken, profile, cb) {
         } else {
             var newUser = new User();
             newUser.facebookId = profile.id;                
-            newUser.facebookToken = token;
-            newUser.name  = profile.name.givenName + ' ' + profile.name.familyName;
+            newUser.facebookToken = profile.token;
+            newUser.name = profile.displayName;
             newUser.email = profile.emails[0].value;
 
             newUser.save(function(err) {

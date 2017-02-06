@@ -10,7 +10,8 @@ export default class IndexPage extends React.Component {
     super();
     this.state = {
       polls: [],
-      loaded: false
+      loaded: false,
+      userId: null
     };
   }
 
@@ -22,15 +23,30 @@ export default class IndexPage extends React.Component {
     });
   }
 
+  isLoggedIn() {
+    axios.get("api/isLoggedIn").then( res => {
+      this.setState({userId: res.data.userId});
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+
   componentDidMount() {
     this.fetchPolls();
+    this.isLoggedIn();
   }
 
   render() {
+    let pollForm;
+    if (this.state.userId) {
+      pollForm = <NewPollFormContainer />
+    } else {
+      pollForm = <p>Log in first so you can create your own polls.</p>;
+    }
     return (
     <Row>
       <Col xs={12} md={6}>
-        <NewPollFormContainer />
+        {pollForm}
       </Col>
       <Col xs={12} md={6}>
         <ListGroup>

@@ -29,7 +29,8 @@ Mongoose.connect(MONGODB_URI);
 Passport.use(new Strategy({
     clientID: configAuth.facebookAuth.clientID || Authprocess.env.CLIENT_ID,
     clientSecret: configAuth.facebookAuth.clientSecret || process.env.CLIENT_SECRET,
-    callbackURL: configAuth.facebookAuth.callbackURL || process.env.CALLBACK_URL
+    callbackURL: configAuth.facebookAuth.callbackURL || process.env.CALLBACK_URL,
+    profileFields: ["emails", "displayName"]
   },
   UserCtrl.facebookCallback
 ));
@@ -42,6 +43,9 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(Express.static(path.join(__dirname, 'static')));
 app.use(BodyParser.json());
+app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+app.use(Passport.initialize());
+app.use(Passport.session());
 app.use('/api', apiRoutes);
 
 app.get('*', (req, res) => {
