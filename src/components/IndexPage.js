@@ -52,7 +52,7 @@ export default class IndexPage extends React.Component {
     let button;
     if (this.state.userId) {
       pollForm = <NewPollFormContainer userId={this.state.userId}/>
-      button = <Button onClick={this.toggleButton.bind(this)}>{this.state.buttonMessage}</Button>
+      button = <Button className="list-item-box btn-warning" onClick={this.toggleButton.bind(this)} block>{this.state.buttonMessage}</Button>
     } else {
       pollForm = <p>Log in first so you can create your own polls.</p>;
     }
