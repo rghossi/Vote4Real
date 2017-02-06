@@ -52,9 +52,10 @@ class NewPollFormContainer extends React.Component {
 		}
 		axios.post("../api/polls", {
 			title: this.state.title,
-			options: newOptionsArray
+			options: newOptionsArray,
+			author: this.props.userId
 		}).then( res => {
-			const url = '/poll/' + res.data._id;
+			const url = '/poll/all/' + res.data._id;
 			this.props.router.push(url);
 		}).catch( err => {
 			this.props.router.push('/');

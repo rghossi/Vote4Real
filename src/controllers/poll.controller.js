@@ -19,11 +19,9 @@ export function getPolls(req, res) {
 export function createNewPoll(req, res){
 	let poll = new Poll({
 		title: req.body.title,
-		options: req.body.options
+		options: req.body.options,
+		author: req.body.author
 	});
-	if (req.body.author){
-		poll.author = req.body.author;
-	};
 	poll.save((err, poll) => {
 		if (err) {
 			console.log(err);

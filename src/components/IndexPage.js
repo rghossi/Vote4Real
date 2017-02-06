@@ -2,7 +2,7 @@ import React from 'react';
 import PollPreview from './PollPreview';
 import NewPollFormContainer from './NewPollFormContainer';
 import axios from 'axios';
-import { ListGroup, Row, Col } from 'react-bootstrap';
+import { Button, ListGroup, Row, Col } from 'react-bootstrap';
 import Loader from 'react-loader';
 
 export default class IndexPage extends React.Component {
@@ -10,14 +10,17 @@ export default class IndexPage extends React.Component {
     super();
     this.state = {
       polls: [],
+      allPolls: [],
       loaded: false,
-      userId: null
+      userId: null,
+      filter: 'all',
+      buttonMessage: 'Show only my polls'
     };
   }
 
   fetchPolls() {
     axios.get("api/polls").then( res => {
-      this.setState({polls: res.data.polls, loaded: true});
+      this.setState({polls: res.data.polls, loaded: true, allPolls: res.data.polls});
     }).catch(err => {
       console.log(err);
     });
@@ -31,6 +34,14 @@ export default class IndexPage extends React.Component {
     });
   }
 
+  toggleButton() {
+    if (this.state.filter === 'all'){
+      this.setState({buttonMessage: 'Show all', filter: 'mine', polls: this.state.polls.filter((poll) => {return poll.author === this.state.userId})});
+    } else {
+      this.setState({buttonMessage: 'Show only my polls', filter: 'all', polls: this.state.allPolls});
+    }
+  }
+
   componentDidMount() {
     this.fetchPolls();
     this.isLoggedIn();
@@ -38,8 +49,10 @@ export default class IndexPage extends React.Component {
 
   render() {
     let pollForm;
+    let button;
     if (this.state.userId) {
-      pollForm = <NewPollFormContainer />
+      pollForm = <NewPollFormContainer userId={this.state.userId}/>
+      button = <Button onClick={this.toggleButton.bind(this)}>{this.state.buttonMessage}</Button>
     } else {
       pollForm = <p>Log in first so you can create your own polls.</p>;
     }
@@ -49,9 +62,10 @@ export default class IndexPage extends React.Component {
         {pollForm}
       </Col>
       <Col xs={12} md={6}>
+        {button}
         <ListGroup>
           <Loader loaded={this.state.loaded}>
-	      	  {this.state.polls.map(pollData => <PollPreview key={pollData._id} {...pollData} />)}
+	      	  {this.state.polls.map(pollData => <PollPreview filter={this.state.filter} key={pollData._id} {...pollData} />)}
 		      </Loader>
         </ListGroup>
       </Col>

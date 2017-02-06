@@ -13,7 +13,8 @@ export default class PollPageContainer extends React.Component {
       previousPoll: null,
       nextPoll: null,
       loaded: false,
-      selectedItem: -1
+      selectedItem: -1,
+      userId: null
     };
 
     this.handleSelect = this.handleSelect.bind(this);
@@ -22,8 +23,13 @@ export default class PollPageContainer extends React.Component {
 
   fetchPolls() {
     const id = this.props.params.id;
-    axios.get("../api/polls").then( res => {
-      const polls = res.data.polls;
+    axios.get("../../api/polls").then( res => {
+      let polls = [];
+      if (this.props.params.filter === "mine") {
+        polls = res.data.polls.filter((poll) => poll.author === this.state.userId);
+      } else {
+        polls = res.data.polls;
+      }
       const poll = polls.filter((poll) => poll._id === id)[0];
       const index = polls.indexOf(poll);
       if (index !== 0){
@@ -41,7 +47,7 @@ export default class PollPageContainer extends React.Component {
 
   handleSubmit(){
     if (this.state.selectedItem === -1) return;
-    const url = "../api/poll/" + this.state.poll._id;
+    const url = "../../api/poll/" + this.state.poll._id;
     axios.put(url, {
       selectedItemId: this.state.selectedItem
     }).then((res) => {
@@ -55,19 +61,28 @@ export default class PollPageContainer extends React.Component {
     });
   }
 
+  isLoggedIn() {
+    axios.get("../../api/isLoggedIn").then( res => {
+      this.setState({userId: res.data.userId});
+      this.fetchPolls();
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+
   handleSelect(e){
     this.setState({selectedItem: e.target.value});
   }
 
   componentDidMount () {
-    this.fetchPolls();
+    this.isLoggedIn();
   }
 
   componentDidUpdate (prevProps) {
     let oldId = prevProps.params.id;
     let newId = this.props.params.id;
     if (newId !== oldId)
-      this.fetchPolls();
+      this.isLoggedIn();
   }
 
   render() {
@@ -82,6 +97,6 @@ export default class PollPageContainer extends React.Component {
         hoverBackgroundColor: colors
       }]
     };
-    return <PollPage selectedItem={this.state.selectedItem} handleSelect={this.handleSelect} handleSubmit={this.handleSubmit} chartData={chartData} poll={this.state.poll} previousPoll={this.state.previousPoll} nextPoll={this.state.nextPoll} />;
+    return <PollPage filter={this.props.params.filter} selectedItem={this.state.selectedItem} handleSelect={this.handleSelect} handleSubmit={this.handleSubmit} chartData={chartData} poll={this.state.poll} previousPoll={this.state.previousPoll} nextPoll={this.state.nextPoll} />;
   }
 }
