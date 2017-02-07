@@ -12,8 +12,11 @@ export default class Layout extends React.Component {
   }
 
   isLoggedIn() {
-    axios.get("api/isLoggedIn").then( res => {
-      console.log(res.data.userId);
+    let path = '';
+    if (typeof window !== 'undefined') {
+      path = location.protocol + '//' + location.host;
+    }
+    axios.get(path + "/api/isLoggedIn").then( res => {
       this.setState({userId: res.data.userId});
     }).catch(err => {
       console.log(err);
