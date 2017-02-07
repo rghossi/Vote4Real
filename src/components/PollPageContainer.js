@@ -3,8 +3,9 @@ import PollPage from './PollPage';
 import NotFoundPage from './NotFoundPage';
 import axios from 'axios';
 import Loader from 'react-loader';
+import { withRouter } from 'react-router' 
 
-export default class PollPageContainer extends React.Component {
+class PollPageContainer extends React.Component {
 
   constructor() {
     super();
@@ -19,6 +20,7 @@ export default class PollPageContainer extends React.Component {
 
     this.handleSelect = this.handleSelect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.deletePoll = this.deletePoll.bind(this);
   }
 
   fetchPolls() {
@@ -70,6 +72,19 @@ export default class PollPageContainer extends React.Component {
     });
   }
 
+  deletePoll() {
+    var r = confirm("Are you sure you want to delete this poll?");
+    if (!r) return;
+    console.log(this.state);
+    axios.delete("../../api/poll/" + this.state.poll._id, {
+      userId: this.state.userId
+    }).then( res => {
+      this.props.router.push('/');
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+
   handleSelect(e){
     this.setState({selectedItem: e.target.value});
   }
@@ -97,6 +112,8 @@ export default class PollPageContainer extends React.Component {
         hoverBackgroundColor: colors
       }]
     };
-    return <PollPage userId={this.state.userId} filter={this.props.params.filter} selectedItem={this.state.selectedItem} handleSelect={this.handleSelect} handleSubmit={this.handleSubmit} chartData={chartData} poll={this.state.poll} previousPoll={this.state.previousPoll} nextPoll={this.state.nextPoll} />;
+    return <PollPage deletePoll={this.deletePoll} userId={this.state.userId} filter={this.props.params.filter} selectedItem={this.state.selectedItem} handleSelect={this.handleSelect} handleSubmit={this.handleSubmit} chartData={chartData} poll={this.state.poll} previousPoll={this.state.previousPoll} nextPoll={this.state.nextPoll} />;
   }
 }
+
+export default withRouter(PollPageContainer);

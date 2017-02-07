@@ -20,7 +20,7 @@ export default class PollPage extends React.Component {
   render() {
     let deleteButton;
     if (this.props.userId && this.props.userId === this.props.poll.author){
-      deleteButton = <Button bsStyle='danger'>Delete poll</Button>;
+      deleteButton = <Button onClick={this.props.deletePoll} bsStyle='danger'>Delete poll</Button>;
     } else {
       deleteButton = null;
     }
