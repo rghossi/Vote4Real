@@ -76,9 +76,7 @@ class PollPageContainer extends React.Component {
     var r = confirm("Are you sure you want to delete this poll?");
     if (!r) return;
     console.log(this.state);
-    axios.delete("../../api/poll/" + this.state.poll._id, {
-      userId: this.state.userId
-    }).then( res => {
+    axios.delete("../../api/poll/" + this.state.poll._id + "/" + this.state.userId).then( res => {
       this.props.router.push('/');
     }).catch(err => {
       console.log(err);

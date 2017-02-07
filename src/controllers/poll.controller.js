@@ -32,7 +32,7 @@ export function createNewPoll(req, res){
 }
 
 export function removePoll(req, res){
-	Poll.remove({_id: req.params.id, author: req.body.userId}, (err, polls) => {
+	Poll.remove({_id: req.params.id, author: req.params.author}, (err, poll) => {
 		if (err) {
 			res.status(500).send(err);
 		} else {
