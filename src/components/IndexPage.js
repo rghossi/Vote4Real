@@ -29,6 +29,7 @@ export default class IndexPage extends React.Component {
   isLoggedIn() {
     axios.get("api/isLoggedIn").then( res => {
       this.setState({userId: res.data.userId});
+      this.fetchPolls();
     }).catch(err => {
       console.log(err);
     });
@@ -43,7 +44,6 @@ export default class IndexPage extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchPolls();
     this.isLoggedIn();
   }
 
@@ -58,17 +58,17 @@ export default class IndexPage extends React.Component {
     }
     return (
     <Row>
-      <Col xs={12} md={6}>
-        {pollForm}
-      </Col>
-      <Col xs={12} md={6}>
-        {button}
-        <ListGroup>
-          <Loader loaded={this.state.loaded}>
-	      	  {this.state.polls.map(pollData => <PollPreview filter={this.state.filter} key={pollData._id} {...pollData} />)}
-		      </Loader>
-        </ListGroup>
-      </Col>
+      <Loader loaded={this.state.loaded}>
+        <Col xs={12} md={6}>
+          {pollForm}
+        </Col>
+        <Col xs={12} md={6}>
+          {button}
+          <ListGroup>
+  	      	{this.state.polls.map(pollData => <PollPreview filter={this.state.filter} key={pollData._id} {...pollData} />)}
+          </ListGroup>
+        </Col>
+      </Loader>
     </Row>
     );
   }

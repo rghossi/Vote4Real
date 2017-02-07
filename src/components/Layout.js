@@ -7,7 +7,8 @@ export default class Layout extends React.Component {
   constructor(){
     super();
     this.state = {
-      userId: null
+      userId: null,
+      loaded: false
     }
   }
 
@@ -17,7 +18,7 @@ export default class Layout extends React.Component {
       path = location.protocol + '//' + location.host;
     }
     axios.get(path + "/api/isLoggedIn").then( res => {
-      this.setState({userId: res.data.userId});
+      this.setState({userId: res.data.userId, loaded:true});
     }).catch(err => {
       console.log(err);
     });
@@ -29,7 +30,9 @@ export default class Layout extends React.Component {
 
   render() {
     let loginLink;
-    if (!this.state.userId) {
+    if (!this.state.loaded) {
+      loginLink = null;
+    } else if (!this.state.userId) {
       loginLink = <a href="/api/login">Login</a>
     } else {
       loginLink = <a href="/api/logout">Logout</a>
