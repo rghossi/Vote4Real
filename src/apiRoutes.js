@@ -6,9 +6,9 @@ import * as UserController from './controllers/user.controller';
 const router = new Router();
 
 router.get("/polls", PollController.getPolls);
-router.post("/polls", PollController.createNewPoll);
+router.post("/polls", UserController.isLoggedInMid, PollController.createNewPoll);
 router.put("/poll/:id", PollController.computeNewVote);
-router.get("/user/polls", UserController.getUserPolls);
+router.delete("/poll/:id", UserController.isLoggedInMid, PollController.removePoll);
 
 router.get("/login", Passport.authenticate('facebook', { scope : 'email' }));
 router.get("/logout", UserController.logout);

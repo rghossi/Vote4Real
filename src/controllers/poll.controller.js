@@ -31,6 +31,16 @@ export function createNewPoll(req, res){
 	});
 }
 
+export function removePoll(req, res){
+	Poll.remove({_id: req.params.id, author: req.body.userId}, (err, polls) => {
+		if (err) {
+			res.status(500).send(err);
+		} else {
+			res.json({message: "Success!"});
+		}
+	});
+}
+
 export function computeNewVote(req, res){
 	const pollId = req.params.id;
 	const optionId = parseInt(req.body.selectedItemId);
