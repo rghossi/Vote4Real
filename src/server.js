@@ -27,9 +27,9 @@ db.once('open', function(){
 Mongoose.connect(MONGODB_URI);
 
 Passport.use(new Strategy({
-    clientID: configAuth.facebookAuth.clientID || Authprocess.env.CLIENT_ID,
-    clientSecret: configAuth.facebookAuth.clientSecret || process.env.CLIENT_SECRET,
-    callbackURL: configAuth.facebookAuth.callbackURL || process.env.CALLBACK_URL,
+    clientID: configAuth.facebookAuth.clientID || process.env.clientID,
+    clientSecret: configAuth.facebookAuth.clientSecret || process.env.clientSecret,
+    callbackURL: configAuth.facebookAuth.callbackURL || process.env.callbackURL,
     profileFields: ["emails", "displayName"]
   },
   UserCtrl.facebookCallback
