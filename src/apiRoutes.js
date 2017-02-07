@@ -8,6 +8,7 @@ const router = new Router();
 router.get("/polls", PollController.getPolls);
 router.post("/polls", UserController.isLoggedInMid, PollController.createNewPoll);
 router.put("/poll/:id", PollController.computeNewVote);
+router.post("/poll/:id", PollController.addNewOption);
 router.delete("/poll/:id/:author", UserController.isLoggedInMid, PollController.removePoll);
 
 router.get("/login", Passport.authenticate('facebook', { scope : 'email' }));

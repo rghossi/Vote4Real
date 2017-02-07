@@ -76,3 +76,23 @@ export function computeNewVote(req, res){
 		}
 	});
 };
+
+export function addNewOption(req, res){
+	const pollId = req.params.id;
+	const desc = req.body.desc;
+
+	Poll.findById(pollId, (err, poll) => {
+		if (err) throw err;
+		const newOptionId = poll.options.length;
+		const options = poll.options;
+		options.push({
+			id: newOptionId,
+			desc: desc
+		})
+		poll.set({ options });
+		poll.save(function(err, updatedPoll){
+			if (err) res.status(500).send(err);
+			else res.json(updatedPoll);
+		});
+	});
+};

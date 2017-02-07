@@ -23,11 +23,11 @@ class PollPageContainer extends React.Component {
     this.handleSelect = this.handleSelect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNewOptionChange = this.handleNewOptionChange.bind(this);
+    this.handleAddNewOption = this.handleAddNewOption.bind(this);
     this.deletePoll = this.deletePoll.bind(this);
   }
 
   fetchPolls() {
-    if (!this.state.loaded) this.setState({loaded: false});
     const id = this.props.params.id;
     axios.get("../../api/polls").then( res => {
       let polls = [];
@@ -57,9 +57,13 @@ class PollPageContainer extends React.Component {
     axios.put(url, {
       selectedItemId: this.state.selectedItem
     }).then((res) => {
-      this.fetchPolls();
+      this.setState({poll: res.data, selectedItem: -1});
     }).catch((err) => {
-      console.log(err);
+      if(err.response.status === 403){
+        alert(err.response.data);
+      } else {
+        alert(err.response);
+      }
     });
   }
 
@@ -69,13 +73,9 @@ class PollPageContainer extends React.Component {
     axios.post(url, {
       desc: this.state.newOption.trim()
     }).then((res) => {
-      this.setState({poll: res.data, selectedItem: -1});
+      this.setState({poll: res.data, newOption: ''});
     }).catch((err) => {
-      if(err.response.status === 403){
-        alert(err.response.data);
-      } else {
-        alert(err.response);
-      }
+      console.log(err);
     });
   }
 
@@ -91,7 +91,6 @@ class PollPageContainer extends React.Component {
   deletePoll() {
     var r = confirm("Are you sure you want to delete this poll?");
     if (!r) return;
-    console.log(this.state);
     axios.delete("../../api/poll/" + this.state.poll._id + "/" + this.state.userId).then( res => {
       this.props.router.push('/');
     }).catch(err => {
@@ -104,7 +103,6 @@ class PollPageContainer extends React.Component {
   }
 
   handleNewOptionChange(e){
-    console.log(this.state);
     this.setState({newOption: e.target.value});
   }
 
