@@ -3,6 +3,7 @@ import { Button, Row, Col, Pager } from 'react-bootstrap';
 import VoteBox from './VoteBox';
 import { Doughnut } from 'react-chartjs-2';
 import { Link } from 'react-router';
+import { ShareButtons, generateShareIcon } from 'react-share';
 
 export default class PollPage extends React.Component {
   previousPollBtn() {
@@ -18,6 +19,9 @@ export default class PollPage extends React.Component {
   }
 
   render() {
+    const { FacebookShareButton } = ShareButtons;
+    const FacebookIcon = generateShareIcon('facebook');
+    const url = window.location.toString();
     let deleteButton;
     if (this.props.userId && this.props.userId === this.props.poll.author){
       deleteButton = <Button onClick={this.props.deletePoll} bsStyle='danger'>Delete poll</Button>;
@@ -40,6 +44,13 @@ export default class PollPage extends React.Component {
             <div className="text-center add-margin-top">{deleteButton}</div>
           </Col>
         </Row>
+        <a href=""><FacebookShareButton
+          url={url}>
+          <FacebookIcon
+            size={32}
+            round />
+            Share
+        </FacebookShareButton></a>
         <Pager>
           {this.previousPollBtn()}
           {this.nextPollBtn()}

@@ -38,8 +38,10 @@
     "react-bootstrap": "^0.30.7",
     "react-chartjs-2": "^2.0.0",
     "react-dom": "^15.3.2",
+    "react-facebook": "^2.2.5",
     "react-loader": "^2.4.0",
-    "react-router": "^2.6.1"
+    "react-router": "^2.6.1",
+    "react-share": "^1.11.1"
   },
   "devDependencies": {
     "babel-loader": "^6.2.10",
