@@ -39,3 +39,7 @@ body {
 .list-item-box {
   margin-bottom: 5px;
 }
+
+.add-margin-top {
+  margin-top: 10px;
+}

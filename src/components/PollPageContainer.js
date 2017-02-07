@@ -97,6 +97,6 @@ export default class PollPageContainer extends React.Component {
         hoverBackgroundColor: colors
       }]
     };
-    return <PollPage filter={this.props.params.filter} selectedItem={this.state.selectedItem} handleSelect={this.handleSelect} handleSubmit={this.handleSubmit} chartData={chartData} poll={this.state.poll} previousPoll={this.state.previousPoll} nextPoll={this.state.nextPoll} />;
+    return <PollPage userId={this.state.userId} filter={this.props.params.filter} selectedItem={this.state.selectedItem} handleSelect={this.handleSelect} handleSubmit={this.handleSubmit} chartData={chartData} poll={this.state.poll} previousPoll={this.state.previousPoll} nextPoll={this.state.nextPoll} />;
   }
 }

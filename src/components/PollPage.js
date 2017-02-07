@@ -1,5 +1,5 @@
 import React from 'react';
-import { Gr_id, Row, Col, Pager } from 'react-bootstrap';
+import { Button, Row, Col, Pager } from 'react-bootstrap';
 import VoteBox from './VoteBox';
 import { Doughnut } from 'react-chartjs-2';
 import { Link } from 'react-router';
@@ -18,6 +18,13 @@ export default class PollPage extends React.Component {
   }
 
   render() {
+    let deleteButton;
+    console.log(this.props);
+    if (this.props.userId && this.props.userId === this.props.poll.author){
+      deleteButton = <Button bsStyle='danger'>Delete poll</Button>;
+    } else {
+      deleteButton = null;
+    }
     return (
       <div>
         <Row>
@@ -31,6 +38,7 @@ export default class PollPage extends React.Component {
           </Col>
           <Col xs={12} md={8}>
             <Doughnut data={this.props.chartData} />
+            <div className="text-center add-margin-top">{deleteButton}</div>
           </Col>
         </Row>
         <Pager>
