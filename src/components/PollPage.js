@@ -37,7 +37,7 @@ export default class PollPage extends React.Component {
         </Row>
         <Row>
           <Col xs={12} md={4}>
-            <VoteBox selectedItem={this.props.selectedItem} handleSelect={this.props.handleSelect} handleSubmit={this.props.handleSubmit} poll={this.props.poll} />
+            <VoteBox addNewOption={this.props.addNewOption} selectedItem={this.props.selectedItem} handleSelect={this.props.handleSelect} handleSubmit={this.props.handleSubmit} poll={this.props.poll} />
           </Col>
           <Col xs={12} md={8}>
             <Doughnut data={this.props.chartData} />

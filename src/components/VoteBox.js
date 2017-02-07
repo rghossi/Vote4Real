@@ -23,6 +23,8 @@ export default class VoteBox extends React.Component {
         <Button onClick={this.props.handleSubmit}>
           Submit
         </Button>
+        <hr />
+        {this.props.addNewOption}
       </form>
     );
   }
