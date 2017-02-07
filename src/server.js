@@ -12,7 +12,14 @@ import BodyParser from 'body-parser';
 import Passport from 'passport';
 import { Strategy } from 'passport-facebook';
 import * as UserCtrl from './controllers/user.controller';
-import configAuth from './config/auth';
+
+const facebookAuth = {};
+if (!process.env.NODE_ENV) {
+  var configAuth = require('./config/auth');
+  facebookAuth.clientID = configAuth.facebookAuth.clientID;
+  facebookAuth.clientSecret = configAuth.facebookAuth.clientSecret;
+  facebookAuth.callbackURL = configAuth.facebookAuth.callbackURL;
+}
 
 const app = new Express();
 const server = new Server(app);
@@ -27,9 +34,9 @@ db.once('open', function(){
 Mongoose.connect(MONGODB_URI);
 
 Passport.use(new Strategy({
-    clientID: configAuth.facebookAuth.clientID || process.env.clientID,
-    clientSecret: configAuth.facebookAuth.clientSecret || process.env.clientSecret,
-    callbackURL: configAuth.facebookAuth.callbackURL || process.env.callbackURL,
+    clientID: process.env.clientID || facebookAuth.clientID,
+    clientSecret: process.env.clientSecret || facebookAuth.clientSecret,
+    callbackURL: process.env.callbackURL || facebookAuth.callbackURL,
     profileFields: ["emails", "displayName"]
   },
   UserCtrl.facebookCallback
