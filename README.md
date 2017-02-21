@@ -7,6 +7,17 @@ This is a [freeCodeCamp](https://www.freecodecamp.com/challenges/build-a-voting-
 
 It was built using Node, MongoDB, React, Express and facebook authentication.
 
+## Basic/required Features
+
+* As an authenticated user, I can keep my polls and come back later to access them.
+* As an authenticated user, I can share my polls with my friends.
+* As an authenticated user, I can see the aggregate results of my polls.
+* As an authenticated user, I can delete polls that I decide I don't want anymore.
+* As an authenticated user, I can create a poll with any number of possible items.
+* As an unauthenticated or authenticated user, I can see and vote on everyone's polls.
+* As an unauthenticated or authenticated user, I can see the results of polls in chart form.
+* As an authenticated user, if I don't like the options on a poll, I can create a new option.
+
 ## Pre Running Instructions
 
 In order to use facebook authentication, you have to create a new app at [Facebook Developers](https://developers.facebook.com/docs/apps/register).
